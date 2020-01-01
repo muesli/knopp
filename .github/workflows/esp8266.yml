@@ -53,7 +53,6 @@ jobs:
       # dynamically by the build matrix.
       - name: Install platform
         run: |
-          mkdir -p /home/runner/.arduino15/packages
           arduino-cli core update-index
           arduino-cli core install ${{ matrix.arduino-platform }}
 
