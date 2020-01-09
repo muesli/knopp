@@ -8,18 +8,18 @@ import (
 	"github.com/bendahl/uinput"
 )
 
-func initVirtualDevices() (uinput.Mouse, uinput.Keyboard) {
-	mouse, err := uinput.CreateMouse("/dev/uinput", []byte("knop"))
+func initVirtualDevices() (uinput.Dial, uinput.Keyboard) {
+	dial, err := uinput.CreateDial("/dev/uinput", []byte("knopp"))
 	if err != nil {
 		log.Fatalf("Could not create virtual input device (/dev/uinput): %s", err)
 	}
 
-	keyboard, err := uinput.CreateKeyboard("/dev/uinput", []byte("knop Keys"))
+	keyboard, err := uinput.CreateKeyboard("/dev/uinput", []byte("knopp Keys"))
 	if err != nil {
 		log.Fatalf("Could not create virtual input device (/dev/uinput): %s", err)
 	}
 
-	return mouse, keyboard
+	return dial, keyboard
 }
 
 func main() {
@@ -54,13 +54,13 @@ func main() {
 			}
 		case EventLeft:
 			fmt.Println("LEFT")
-			err = mouse.Wheel(true, 1)
+			err = mouse.Turn(-1)
 			if err != nil {
 				log.Fatal(err)
 			}
 		case EventRight:
 			fmt.Println("RIGHT")
-			err = mouse.Wheel(true, -1)
+			err = mouse.Turn(1)
 			if err != nil {
 				log.Fatal(err)
 			}
